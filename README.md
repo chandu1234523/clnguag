@@ -72,3 +72,81 @@ public class Main {
         s.close();
 }
 }
+
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+import java.io.PrintStream;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+    static int count;
+
+    public Main() {
+    }
+
+    static int partition(int[] a, int l, int r) {
+        int i = l;
+        int pivot = a[i];
+        int j = r + 1;
+
+        int temp;
+        do {
+            do {
+                i++;
+                ++count;
+            } while(i < r && a[i] <= pivot);
+
+            do {
+                j--;
+                ++count;
+            } while(j > l && a[j] >= pivot);
+
+            if (i < j) {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        } while(i < j);
+
+        temp = a[l];
+        a[l] = a[j];
+        a[j] = temp;
+        return j;
+    }
+
+    static void sort(int[] a, int l, int r) {
+        if (l < r) {
+            int s = partition(a, l, r);
+            sort(a, l, s - 1);
+            sort(a, s + 1, r);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = s.nextInt();
+        int[] a = new int[n];
+        Random r = new Random();
+        System.out.println("Generated Array: ");
+
+        for(int i = 0; i < n; ++i) {
+            a[i] = r.nextInt(100);
+        }
+
+        System.out.println("\nSorting...");
+        sort(a, 0, n - 1);
+        System.out.println("\nTotal number of basic operations performed: " + count);
+        PrintStream var10000 = System.out;
+        double var10001 = (double)n;
+        double var10002 = Math.log((double)n);
+        var10000.println("Lower Bound: " + var10001 * (var10002 / Math.log(2.0)));
+        System.out.println("Upper Bound: " + n * n);
+        s.close();
+    }
+}
